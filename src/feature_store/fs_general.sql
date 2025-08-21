@@ -1,4 +1,4 @@
-WITH tb_rfv AS (
+WITH tb_rfv AS ( -- testando commit
 
     SELECT 
         idCustomer,
@@ -19,7 +19,7 @@ WITH tb_rfv AS (
 
     GROUP BY idCustomer
 ),
-
+ 
 tb_idade AS (
 
     SELECT
