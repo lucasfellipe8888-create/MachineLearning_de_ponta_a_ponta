@@ -9,8 +9,8 @@ WITH tb_transactions_products AS (
     LEFT JOIN transactions_product AS t2
     ON t1.idTransaction = t2.idTransaction
 
-    WHERE t1.dtTransaction < '{date}'
-    AND t1.dtTransaction >= DATE('{date}', '-21 day')
+    WHERE t1.dtTransaction < '2024-07-01'
+    AND t1.dtTransaction >= DATE('2024-07-01', '-21 day')
 
 ),
 
@@ -83,7 +83,7 @@ tb_produto_max AS (
 )
 
 SELECT 
-       '{date}' AS dtRef,
+       '2024-07-01' AS dtRef,
        t1.*,
        t2.NameProduct AS productMaxQtde
 

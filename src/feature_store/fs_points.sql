@@ -4,12 +4,12 @@ WITH tb_pontos_d AS (
 
         SUM(pointsTransaction) AS saldoPointsD21,
 
-        SUM(CASE WHEN dtTransaction >= DATE('{date}', '-14 day')
+        SUM(CASE WHEN dtTransaction >= DATE('2024-07-01', '-14 day')
                         THEN pointsTransaction
                     ELSE 0
                 END) AS saldoPointsD14,
 
-        SUM(CASE WHEN dtTransaction >= DATE('{date}', '-7 day')
+        SUM(CASE WHEN dtTransaction >= DATE('2024-07-01', '-7 day')
                         THEN pointsTransaction
                     ELSE 0
                 END) AS saldoPointsD7,
@@ -21,13 +21,13 @@ WITH tb_pontos_d AS (
                 END) AS pointsAcumuladosD21,
 
         SUM(CASE WHEN pointsTransaction > 0
-                    AND dtTransaction >= DATE('{date}', '-14 day')
+                    AND dtTransaction >= DATE('2024-07-01', '-14 day')
                         THEN pointsTransaction
                     ELSE 0
             END) AS pointsAcumuladosD14,
 
             SUM(CASE WHEN pointsTransaction > 0
-                    AND dtTransaction >= DATE('{date}', '-7 day')
+                    AND dtTransaction >= DATE('2024-07-01', '-7 day')
                         THEN pointsTransaction
                     ELSE 0
             END) AS pointsAcumuladosD7,
@@ -39,13 +39,13 @@ WITH tb_pontos_d AS (
                 END) AS pointsResgatadosD21,
 
         SUM(CASE WHEN pointsTransaction < 0
-                    AND dtTransaction >= DATE('{date}', '-14 day')
+                    AND dtTransaction >= DATE('2024-07-01', '-14 day')
                         THEN pointsTransaction
                     ELSE 0
             END) AS pointsResgatadosD14,
 
         SUM(CASE WHEN pointsTransaction < 0
-                    AND dtTransaction >= DATE('{date}', '-7 day')
+                    AND dtTransaction >= DATE('2024-07-01', '-7 day')
                         THEN pointsTransaction
                     ELSE 0
             END) AS pointsResgatadosD7
@@ -53,8 +53,8 @@ WITH tb_pontos_d AS (
 
     FROM transactions
 
-    WHERE dtTransaction < '{date}'
-    AND dtTransaction >= DATE('{date}', '-21 day')
+    WHERE dtTransaction < '2024-07-01'
+    AND dtTransaction >= DATE('2024-07-01', '-21 day')
 
     GROUP BY idCustomer
 
@@ -75,14 +75,14 @@ tb_vida AS (
                     ELSE 0
                 END) AS pointsResgatadosVida,
 
-            CAST(max(julianday('{date}') - julianday(dtTransaction)) AS INTEGER) + 1 AS diasVida
+            CAST(max(julianday('2024-07-01') - julianday(dtTransaction)) AS INTEGER) + 1 AS diasVida
 
     FROM tb_pontos_d AS t1
 
     LEFT JOIN transactions AS t2
     ON t1.idCustomer = t2.idCustomer
 
-    WHERE t2.dtTransaction < '{date}'
+    WHERE t2.dtTransaction < '2024-07-01'
 
     GROUP BY t1.idCustomer
 
@@ -106,6 +106,6 @@ tb_join AS (
 
 
 SELECT 
-        '{date}' AS dtRef,
+        '2024-07-01' AS dtRef,
         *
-FROM tb_join
+FROM tb_join limit 10;

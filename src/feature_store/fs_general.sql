@@ -1,9 +1,8 @@
 WITH tb_rfv AS ( -- testando commit
-
     SELECT 
         idCustomer,
 
-        CAST(min(julianday('{date}') - julianday(dtTransaction))
+        CAST(min(julianday('2024-07-01') - julianday(dtTransaction))
             AS INTEGER) + 1 AS recenciaDias,
 
         COUNT(DISTINCT DATE(dtTransaction)) AS frequenciaDias,
@@ -14,8 +13,8 @@ WITH tb_rfv AS ( -- testando commit
 
     FROM transactions
 
-    WHERE dtTransaction < '{date}'
-    AND dtTransaction >= DATE('{date}', '-21 day')
+    WHERE dtTransaction < '2024-07-01'
+    AND dtTransaction >= DATE('2024-07-01', '-21 day')
 
     GROUP BY idCustomer
 ),
@@ -26,7 +25,7 @@ tb_idade AS (
 
         t1.idCustomer,
 
-        CAST(MAX(julianday('{date}') - julianday(t2.dtTransaction))
+        CAST(MAX(julianday('2024-07-01') - julianday(t2.dtTransaction))
                 AS INTEGER) + 1 AS idadeBaseDias
 
     FROM tb_rfv AS t1
@@ -37,9 +36,8 @@ tb_idade AS (
     GROUP BY t2.idCustomer
 
 )
-
 SELECT
-     '{date}' AS dtRef,
+     '2024-07-01' AS dtRef,
      t1.*,
      t2.idadeBaseDias,
      t3.flEmail

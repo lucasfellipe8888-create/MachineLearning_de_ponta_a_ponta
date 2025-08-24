@@ -2,8 +2,8 @@ WITH tb_transactions AS (
 
     SELECT *
     FROM transactions
-    WHERE dtTransaction < '{date}'
-    AND dtTransaction >= DATE('{date}', '-21 day')
+    WHERE dtTransaction < '2024-07-01'
+    AND dtTransaction >= DATE('2024-07-01', '-21 day')
 
 ),
 
@@ -12,8 +12,8 @@ tb_freq AS (
     SELECT 
         idCustomer,
         count(distinct date(dtTransaction)) AS qtdeDiasD21,
-        count(distinct CASE WHEN dtTransaction > date('{date}', '-14 day') THEN date(dtTransaction) END) AS qtdeDiasD14,
-        count(distinct CASE WHEN dtTransaction > date('{date}', '-7 day') THEN date(dtTransaction) END) AS qtdeDiasD7
+        count(distinct CASE WHEN dtTransaction > date('2024-07-01', '-14 day') THEN date(dtTransaction) END) AS qtdeDiasD14,
+        count(distinct CASE WHEN dtTransaction > date('2024-07-01', '-7 day') THEN date(dtTransaction) END) AS qtdeDiasD7
 
     FROM tb_transactions
 
@@ -50,10 +50,10 @@ tb_vida AS (
 
     SELECT idCustomer,
            COUNT(DISTINCT idTransaction) AS qtdeTransacaoVida,
-           COUNT(DISTINCT idTransaction) / (max(julianday('{date}') - julianday(dtTransaction))) AS avgTransacaoDia
+           COUNT(DISTINCT idTransaction) / (max(julianday('2024-07-01') - julianday(dtTransaction))) AS avgTransacaoDia
 
     FROM transactions
-    WHERE dtTransaction < '{date}'
+    WHERE dtTransaction < '2024-07-01'
     GROUP BY idCustomer
 
 ),
@@ -78,7 +78,7 @@ tb_join AS (
 )
 
 SELECT 
-    '{date}' AS dtRef,
+    '2024-07-01' AS dtRef,
     *
 
 FROM tb_join
