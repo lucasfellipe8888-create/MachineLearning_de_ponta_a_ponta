@@ -6,8 +6,8 @@ WITH tb_transactions_hour AS (
 
     FROM transactions
 
-    WHERE dtTransaction < '{date}'
-    AND dtTransaction >= DATE('{date}', '-21 day')
+    WHERE dtTransaction < '2024-07-01'
+    AND dtTransaction >= DATE('2024-07-01', '-21 day')
 
 ),
 
@@ -37,7 +37,7 @@ tb_share AS (
 )
 
 SELECT 
-        '{date}' AS dtRef,
+        '2024-07-01' AS dtRef,
         *
 
 FROM tb_share

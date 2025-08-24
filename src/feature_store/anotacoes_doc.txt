@@ -1,0 +1,1 @@
+em produçao '2024-07-01' seria {date} para pegar a data atual
