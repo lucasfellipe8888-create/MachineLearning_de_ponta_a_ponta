@@ -103,9 +103,7 @@ tb_join AS (
     ON t1.idCustomer = t2.idCustomer
 
 )
-
-
 SELECT 
         '2024-07-01' AS dtRef,
         *
-FROM tb_join limit 10;
+FROM tb_join
